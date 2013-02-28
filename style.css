@@ -72,7 +72,7 @@ body {
 	width:100%;
 	float:none;
 }
-.page-template-no-sidebar-php  #content,
+.page-template-template-no-sidebar-php  #content,
 .page-template-template-sitemap-php #content {
 	width:auto;
 	float:none;
@@ -668,6 +668,12 @@ footer#colophon .widget ul li {
 	margin:10px 20px;
 	background-color:#FFF;
 }
+.hentry .feeds img{
+	border:none;
+	margin:0;
+	padding:0;
+	background-color:transparent;	
+}
 .hentry .alignleft {
 	float:left;
 	margin-left:0px;
@@ -718,6 +724,9 @@ footer#colophon .widget ul li {
 }
 .entry-content{
 	margin-left:132px;	
+}
+.page .entry-content{
+	margin-left:0;	
 }
 .postmeta{
 	width:120px;
@@ -998,6 +1007,9 @@ dt {
 }
 .hentry ul {
 	margin-left:10px;
+}
+.hentry ul ul {
+	margin:0 10px;	
 }
 .hentry ol {
 	list-style-type:decimal;
