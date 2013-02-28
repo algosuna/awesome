@@ -22,11 +22,20 @@
             </div><!-- end postmeta -->            
             
             <div class="entry-content">
-                <?php the_content(); ?>
+                <?php 
+				//if viewing a singular post or page, show the full content, otherwise, show just the excerpt (short version of content)
+				if( is_single() || is_page() ):				
+					the_content();
+				else:
+					the_excerpt();
+				endif; ?>
             </div>
        
         
-		<?php comments_template(); ?>
+		<?php
+		//show the comment list and form (only appears on singular views)
+		 comments_template();  
+		?>
 		 </article><!-- end post -->
       <?php 
 	  endwhile;
