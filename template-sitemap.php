@@ -7,6 +7,15 @@
 <?php get_header(); ?>
     
     <div id="content">
+
+<?php
+//SAFETY NET: make xure the function for breadcrumbs exists
+//ALWAYS do this around plugins or custom function calls
+if(function_exists('dimox_breadcrumbs')):
+    dimox_breadcrumbs();
+endif;
+?>
+    	
 	<?php 
 	//THE LOOP.
 	if( have_posts() ): 

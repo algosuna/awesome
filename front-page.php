@@ -1,7 +1,9 @@
 <?php get_header(); ?>
 
 	<section id="slider">
-		Slider goes here
+
+<?php the_post_thumbnail('awesome-frontpage'); ?>
+
 	</section>
 
     
