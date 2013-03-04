@@ -1,7 +1,6 @@
 <?php get_header(); ?>
     
     <div id="content">
-    
     <?php 
     //make sure the function for breadcrumbs exists
     //ALWAYS do this around plugin or custom function calls
@@ -22,13 +21,7 @@
                 <?php the_title(); ?> 
                 </a>
             </h2>
-            <div class="postmeta"> 
-                <span class="author"> Posted by: <?php the_author(); ?> </span> 
-                <span class="date"> <?php the_date(); ?> </span> 
-                <span class="num-comments"> <?php comments_number('No comments yet', 'One comment', '% comments'); ?></span> 
-                <span class="categories"><?php the_category(); ?></span> 
-                <span class="tags"><?php the_tags(); ?></span> 
-            </div><!-- end postmeta --> 
+           
             
         
              <?php 
@@ -48,6 +41,12 @@
                 endif; ?>
             </div>
        
+            <div class="pagination">
+                <?php previous_post_link('%link', '&laquo; Earlier: %title'); ?>
+                <?php next_post_link('%link', 'Later: %title &raquo;'); ?>
+            </div>
+       
+       
         
         <?php
         //show the comment list and form (only appears on singular views)
@@ -60,20 +59,6 @@
       <h2>Sorry, no posts found</h2>
       <?php endif; //END OF LOOP. ?>
               
-        
-        <div id="nav-below" class="pagination"> 
-           <?php 
-           //check to see if the pagenavi plugin is active
-           if( function_exists('wp_pagenavi') ):
-                wp_pagenavi();
-           else:
-           ?>          
-               <?php next_posts_link('&laquo; Older Posts'); ?>             
-               <?php previous_posts_link('Newer Posts &raquo;'); ?>
-               
-            <?php endif; ?>
-               
-        </div><!-- end #nav-below --> 
         
     </div><!-- end content -->
     

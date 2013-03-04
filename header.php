@@ -35,12 +35,32 @@ wp_head();  ?>
 		<?php get_search_form(); ?>
 		
 		<ul class="utilities">
-		   <?php wp_list_pages('title_li=&include=2,146'); ?>
+		  <?php //check to see if the main nav area has a menu assigned to it 
+			 if( has_nav_menu('utilities') ):
+			 	wp_nav_menu( array(
+					'theme_location' => 'utilities',
+					'container' => false, //remove the div
+					'items_wrap' => '%3$s' //see codex. remove ul, leave just li's
+				) );
+			 else:
+			 	wp_list_pages('title_li=&include=2,146');
+			 endif;
+			  ?>
 		</ul>
 		
 		<nav>
 		  <ul>
-			 <?php wp_list_pages('title_li=&exclude=2,146'); ?>
+			 <?php //check to see if the main nav area has a menu assigned to it 
+			 if( has_nav_menu('main_menu') ):
+			 	wp_nav_menu( array(
+					'theme_location' => 'main_menu',
+					'container' => false, //remove the div
+					'items_wrap' => '%3$s' //see codex. remove ul, leave just li's
+				) );
+			 else:
+			 	wp_list_pages('title_li=&exclude=2,146');
+			 endif;
+			  ?>
 		  </ul>
 		</nav>
 	</header><!-- end header -->

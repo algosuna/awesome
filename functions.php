@@ -1,63 +1,80 @@
 <?php
 //turn on WP features
-add_theme_support('post-formats',array('image','video','audio','quote','gallery'));
-add_theme_support('post-thumbnails');//AKA 'featured image'
+add_theme_support('post-formats', array('image', 'video', 'audio', 'quote', 'gallery'));
+add_theme_support('post-thumbnails'); //AKA 'featured image'
 add_theme_support('custom-background');
 
 //custom header defaults
-$defaults=array(
-	'width'=>960,
-	'height'=>150
+$defaults = array(
+	'width' => 960,
+	'height' => 150
 );
-
-//add_theme_support('custom-header',$defaults);
+//add_theme_support('custom-header', $defaults);
 
 //more robust feed links on every page
 add_theme_support('automatic-feed-links');
 
+
 //add more image sizes
-//(name,width,height,crop?)
-add_image_size('awesome-tiny',90,90,true);
-add_image_size('awesome-banner',960,150,true);
-add_image_size('awesome-frontpage',960,330,true);
+//(name, width, height, crop?)
+add_image_size('awesome-tiny', 90, 90, true );
+add_image_size('awesome-banner', 960, 150, true);
+add_image_size('awesome-frontpage', 960, 330, true);
 
 /**
-  * Change the default length of the excerpt
-  * Since ver 1.0
+ * Change the default length of the excerpt
+ * Since ver 1.0
  */
 function awesome_excerpt_length(){
-	return 20;
+	return 45;
 }
-add_filter('excerpt_length','awesome_excerpt_length');
+add_filter('excerpt_length', 'awesome_excerpt_length');
 
 /**
  * Improves the [...] at the end of excerpts
  * Since ver 1.0
  */
 function awesome_excerpt_more(){
-	return '&hellip; <a href="'.get_permalink().'" class="readmore">Read More</a>';
+	return '&hellip; <a href="'.get_permalink().'" class="readmore">Read More</a>';	
 }
-add_filter('excerpt_more','awesome_excerpt_more');
+add_filter('excerpt_more', 'awesome_excerpt_more');
+
 
 /**
- * Improve UI for comment replies
+ * Improve UX for comment replies
  * Since ver 1.0
  */
 function awesome_comment_reply(){
-   if(!is_admin()&&is_singular()&&comments_open()&& get_option('thread_comments')):
-		wp_enqueue_script('comment-reply');
-	endif;
+   if( !is_admin() && is_singular() && comments_open() && get_option('thread_comments') ):
+        wp_enqueue_script( 'comment-reply' );
+    endif;    
 }
-add_action('wp_print_scripts','awesome_comment_reply');
+add_action( 'wp_print_scripts', 'awesome_comment_reply' );
 
-/*
+
+/**
+ * Menu System Support
+ * Adds two menu areas to the theme
+ * Since 1.0
+ * NOTE: Menus are displayed on header.php
+ */
+ 
+function awesome_menus(){
+	register_nav_menus( array(
+		//Each item in this array is one Menu Area (Theme Location).  Add more!
+		'main_menu' => 'Global Navigation',
+		'utilities' => 'Top Utility Bar'
+	) );	
+}
+add_action( 'init', 'awesome_menus' );
+
+/**
  * Dimox Breadcrumbs
  * http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
  * Since ver 1.0
  * Add this to any template file by calling dimox_breadcrumbs()
  */
-function dimox_breadcrumbs() {
-
+function dimox_breadcrumbs(){
 	/* === OPTIONS === */
 	$text['home']     = 'Home'; // text for the 'Home' link
 	$text['category'] = 'Archive by Category "%s"'; // text for a category page
@@ -184,4 +201,9 @@ function dimox_breadcrumbs() {
 	}
 } // end dimox_breadcrumbs()
 
-//DO NOT CLOSE PHP AT THE BOTTOM OF FUNCTIONS
+
+
+
+
+
+//DO NOT CLOSE PHP at the bottom of functions
