@@ -69,6 +69,65 @@ function awesome_menus(){
 add_action( 'init', 'awesome_menus' );
 
 /**
+ * Custom Callback for displaying comments on posts
+ * Creates an HTML template to override the default comment markup
+ * Used on comments.php
+ * Since ver 1.0
+ */
+function awesome_comment($comment, $args, $depth) {
+		$GLOBALS['comment'] = $comment;
+		extract($args, EXTR_SKIP);
+ 
+		if ( 'div' == $args['style'] ) {
+			$tag = 'div';
+			$add_below = 'comment';
+		} else {
+			$tag = 'li';
+			$add_below = 'div-comment';
+		}
+?>
+		<?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
+		<?php if ( 'div' != $args['style'] ) : ?>
+		<div id="div-comment-<?php comment_ID() ?>" class="comment-body">
+		<?php endif; ?>
+		
+		<?php //customize HTML output below this line  ?>
+
+		<div class="comment-author vcard">
+			<?php echo get_avatar( $comment->comment_author_email, 70 ); ?>
+			<span class="fn"><?php comment_author_link(); ?></span>
+		</div>
+		
+<?php 
+//special message if the comment is awaiting admin approval
+if ($comment->comment_approved == '0') : ?>
+		<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
+<?php endif; ?>
+
+		<?php comment_text() ?>
+ 
+		<div class="comment-meta commentmetadata">
+			<span class="comment-date"><?php comment_date('F j, Y'); ?></span>
+			<span class="comment-link"><a href="<?php comment_link(); ?>">link</a></span>
+			
+			<?php
+			if( comments_open() ): ?>
+			<span class="comment-reply-button">
+			<?php comment_reply_link( array_merge( $args, array(
+				'depth' => $depth,
+				'max_depth' => $args['max_depth']
+			) ) ); ?></span>
+			<?php endif; ?>
+		</div>
+ 
+		
+		<?php if ( 'div' != $args['style'] ) : ?>
+		</div>
+		<?php endif; ?>
+<?php
+}
+
+/**
  * Dimox Breadcrumbs
  * http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
  * Since ver 1.0
