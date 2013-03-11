@@ -56,7 +56,7 @@ add_action( 'wp_print_scripts', 'awesome_comment_reply' );
  * Menu System Support
  * Adds two menu areas to the theme
  * Since 1.0
- * NOTE: Menus are displayed on header.php
+ * Menus are displayed on header.php
  */
  
 function awesome_menus(){
@@ -69,15 +69,57 @@ function awesome_menus(){
 add_action( 'init', 'awesome_menus' );
 
 /**
+ * Set up Widget Areas (Dynamic Sidebars)
+ * Since ver. 1.0
+ */
+ register_sidebar( array(
+	'name' => 'Home Features',
+	'description' => 'An area near the bottom of the home page',
+	'id' => 'home-features',
+	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+	'after_widget' => '</div>',
+	'before_title' => '<h3 class="widget-title">',
+	'after_title' => '</h3>'
+) );
+ register_sidebar( array(
+	'name' => 'Blog Sidebar',
+	'description' => 'An area next to all blog content, search, and archives',
+	'id' => 'blog-sidebar',
+	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+	'after_widget' => '</div>',
+	'before_title' => '<h3 class="widget-title">',
+	'after_title' => '</h3>'
+) );
+register_sidebar( array(
+	'name' => 'Page Sidebar',
+	'description' => 'An area next to each page',
+	'id' => 'page-sidebar',
+	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+	'after_widget' => '</div>',
+	'before_title' => '<h3 class="widget-title">',
+	'after_title' => '</h3>'
+) );
+register_sidebar( array(
+	'name' => 'Footer Area',
+	'description' => 'Area at the bottom of every view',
+	'id' => 'footer-area',
+	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+	'after_widget' => '</div>',
+	'before_title' => '<h3 class="widget-title">',
+	'after_title' => '</h3>'
+) );
+ 
+ 
+/**
  * Custom Callback for displaying comments on posts
  * Creates an HTML template to override the default comment markup
  * Used on comments.php
- * Since ver 1.0
+ * Since ver. 1.0
  */
 function awesome_comment($comment, $args, $depth) {
 		$GLOBALS['comment'] = $comment;
 		extract($args, EXTR_SKIP);
- 
+
 		if ( 'div' == $args['style'] ) {
 			$tag = 'div';
 			$add_below = 'comment';
@@ -92,20 +134,20 @@ function awesome_comment($comment, $args, $depth) {
 		<?php endif; ?>
 		
 		<?php //customize HTML output below this line  ?>
-
+		
 		<div class="comment-author vcard">
-			<?php echo get_avatar( $comment->comment_author_email, 70 ); ?>
+	<?php echo get_avatar( $comment->comment_author_email, $args['avatar_size'] ); ?>
 			<span class="fn"><?php comment_author_link(); ?></span>
 		</div>
 		
 <?php 
 //special message if the comment is awaiting admin approval
 if ($comment->comment_approved == '0') : ?>
-		<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
+		<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>		
 <?php endif; ?>
-
+		
 		<?php comment_text() ?>
- 
+
 		<div class="comment-meta commentmetadata">
 			<span class="comment-date"><?php comment_date('F j, Y'); ?></span>
 			<span class="comment-link"><a href="<?php comment_link(); ?>">link</a></span>
@@ -119,14 +161,15 @@ if ($comment->comment_approved == '0') : ?>
 			) ) ); ?></span>
 			<?php endif; ?>
 		</div>
- 
+
 		
 		<?php if ( 'div' != $args['style'] ) : ?>
 		</div>
 		<?php endif; ?>
 <?php
 }
-
+ 
+ 
 /**
  * Dimox Breadcrumbs
  * http://dimox.net/wordpress-breadcrumbs-without-a-plugin/

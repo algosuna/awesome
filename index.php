@@ -2,18 +2,18 @@
     
     <div id="content">
     
-<?php 
-//make sure the function for breadcrumbs exists
-//ALWAYS do this around plugin or custom function calls
-if(function_exists('dimox_breadcrumbs')):
-    dimox_breadcrumbs(); 
-endif;
-?>
-
-<?php 
-//THE LOOP.
-if( have_posts() ): 
-    while( have_posts() ):
+    <?php 
+    //make sure the function for breadcrumbs exists
+    //ALWAYS do this around plugin or custom function calls
+    if(function_exists('dimox_breadcrumbs')):
+        dimox_breadcrumbs(); 
+    endif;
+    ?>
+    
+    <?php 
+    //THE LOOP.
+    if( have_posts() ): 
+        while( have_posts() ):
         the_post(); ?>
     
         <article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
@@ -31,37 +31,35 @@ if( have_posts() ):
             </div><!-- end postmeta --> 
             
         
-<?php 
-        // (size, attributes)
-        //valid sizes: thumbnail, medium, large             
-        the_post_thumbnail('thumbnail', array(
-        'class' => 'thumb'
-));
-?>          
+             <?php 
+             // (size, attributes)
+             //valid sizes: thumbnail, medium, large             
+             the_post_thumbnail('thumbnail', array(
+                'class' => 'thumb'
+             ));  ?>          
             
             <div class="entry-content">
-<?php 
-        //if viewing a singular post or page, show the full content, otherwise, show just the excerpt (short version of content)
-        if( is_single() || is_page() ):             
-            the_content();
-        else:
-            the_excerpt();
-        endif;
-?>
+                <?php 
+                //if viewing a singular post or page, show the full content, otherwise, show just the excerpt (short version of content)
+                if( is_single() || is_page() ):             
+                    the_content();
+                else:
+                    the_excerpt();
+                endif; ?>
             </div>
        
         
-<?php
+        <?php
         //show the comment list and form (only appears on singular views)
         //loads comments.php if it exists
-        comments_template();  
-?>
+         comments_template();  
+        ?>
          </article><!-- end post -->
-<?php 
-    endwhile;
-else: ?>
+      <?php 
+      endwhile;
+      else: ?>
       <h2>Sorry, no posts found</h2>
-<?php endif; //END OF LOOP. ?>
+      <?php endif; //END OF LOOP. ?>
               
         
         <div id="nav-below" class="pagination"> 

@@ -1,9 +1,7 @@
 <?php get_header(); ?>
 
 	<section id="slider">
-
-<?php the_post_thumbnail('awesome-frontpage'); ?>
-
+		 <?php the_post_thumbnail('awesome-frontpage');  ?>  
 	</section>
 
     
@@ -34,5 +32,5 @@
         
     </div><!-- end content -->
     
-<?php get_sidebar(); ?> 
+<?php get_sidebar('frontpage'); //includes sidebar-frontpage.php ?> 
 <?php get_footer(); ?>  

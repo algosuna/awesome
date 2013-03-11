@@ -1,8 +1,11 @@
 </div><!-- end wrapper -->
 
 <footer class="clearfix" id="colophon" role="contentinfo">
-    <div class="widget-container">        
-        &copy; 2012 <?php bloginfo('name'); ?>        
+    <div class="widget-container"> 
+	
+		<?php dynamic_sidebar('Footer Area'); ?>
+		       
+        <small>&copy; 2012 <?php bloginfo('name'); ?></small>        
     </div>
 </footer><!-- end footer -->
 
