@@ -6,11 +6,19 @@
 
     
     <div id="content">
+
+    	<?php
+    	//get the values from our options plugin
+    	$options=get_option('rad_options');
+    	//show/hide the quote based on the settings
+    	if($options['show-quote']==1):
+    	?>
 	
 		<blockquote class="home-quote">
-			<p>Quote Goes Here</p>
-			<cite>&ndash; Source goes here</cite>
+			<p><?php echo $options['quote'];?></p>
+			<cite>&ndash; <?php echo $options['quote-source'];?></cite>
 		</blockquote>
+		<?php endif; ?>
 		
 	
 	<?php 
